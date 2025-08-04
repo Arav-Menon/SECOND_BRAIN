@@ -23,6 +23,9 @@ userProfile.get("/getProfileData", middleware, async (req, res) => {
 userProfile.put("/update", middleware, async (req, res) => {
   const body = req.body;
   const parsed = authValidation.safeParse(body);
+  if (!parsed.success) {
+    res.status(409).json({ message: "Invalid Input" });
+  }
 
   const userId = req.id;
 
