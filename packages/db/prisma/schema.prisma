@@ -21,7 +21,6 @@ model Card {
   id          String   @id @default(uuid())
   title       String
   description String
-  complete    Boolean  @default(false)
   createdAt   DateTime @default(now())
   user        User     @relation(fields: [userId], references: [id])
   userId      String
