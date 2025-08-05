@@ -8,32 +8,50 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  userName  String   @unique
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  cards     Card[]
-  groups    Group[]  @relation("UserGroups")
-  Tag       Tag[]
+  id          String        @id @default(uuid())
+  userName    String        @unique
+  email       String        @unique
+  password    String
+  createdAt   DateTime      @default(now())
+  cards       Card[]
+  Rooms       Room[]
+  Tag         Tag[]
+  RoomMembers RoomMembers[]
 }
 
 model Card {
-  id          String   @id @default(uuid())
+  id          String        @id @default(uuid())
   title       String
   description String
-  createdAt   DateTime @default(now())
-  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime      @default(now())
+  user        User          @relation(fields: [userId], references: [id])
   userId      String
-  groups      Group[]  @relation("GroupCards")
+  Rooms       Room[]
+  roomMembers RoomMembers[]
 }
 
-model Group {
-  id        String   @id @default(uuid())
-  name      String
-  createdAt DateTime @default(now())
-  users     User[]   @relation("UserGroups")
-  cards     Card[]   @relation("GroupCards")
+model Room {
+  id          String        @id @default(uuid())
+  name        String
+  createdAt   DateTime      @default(now())
+  user        User          @relation(fields: [userId], references: [id])
+  userId      String
+  cards       Card?         @relation(fields: [cardId], references: [id])
+  cardId      String?
+  roomMembers RoomMembers[]
+}
+
+model RoomMembers {
+  id       String   @id @default(ulid())
+  user     User     @relation(fields: [userId], references: [id])
+  userId   String
+  room     Room     @relation(fields: [roomId], references: [id])
+  roomId   String
+  joinedAt DateTime @default(now())
+  Card     Card?    @relation(fields: [cardId], references: [id])
+  cardId   String?
+
+  @@unique([userId, roomId])
 }
 
 model Tag {
@@ -41,6 +59,7 @@ model Tag {
   title  String
   user   User   @relation(fields: [userId], references: [id])
   userId String
+
   @@unique([title])
 }
 
