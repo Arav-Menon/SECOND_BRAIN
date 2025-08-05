@@ -1,3 +1,4 @@
+import { getTsBuildInfoEmitOutputFilePath } from 'typescript';
 import z from 'zod';
 
 export const authValidation = z.object({
@@ -9,4 +10,8 @@ export const authValidation = z.object({
 export const cardInputValidation = z.object({
 	title : z.string().max(50),
 	description : z.string().max(1000),
+})
+
+export const tagValidation = z.object({
+	title : z.string().max(15)
 })
