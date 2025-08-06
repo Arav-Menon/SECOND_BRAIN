@@ -27,9 +27,25 @@ userRoomRouter.post("/create", middleware, async (req, res) => {
       },
     });
 
+    const addAdminInRoom = await prismaDb.roomMembers.create({
+      data: {
+        user: {
+          connect: {
+            id: userId,
+          },
+        },
+        room: {
+          connect: {
+            id: newRoom.id,
+          },
+        },
+      },
+    });
+
     res.status(200).json({
       message: "room created",
       newRoom: { roomId: newRoom.id, roomName: newRoom.name },
+      addAdminInRoom,
     });
   } catch (error) {
     return res.status(500).json({ message: "Internal server error", error });
