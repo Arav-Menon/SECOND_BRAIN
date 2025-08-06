@@ -13,7 +13,7 @@ import { getUserRoomCard } from "./routes/room/create-card/get-card";
 
 const app = express();
 
-const PORT = 3000;
+const PORT = 3001;
 app.use(express.json());
 
 app.use("/user", userRouter);
