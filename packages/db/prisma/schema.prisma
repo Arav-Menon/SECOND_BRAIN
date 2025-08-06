@@ -26,8 +26,9 @@ model Card {
   createdAt   DateTime      @default(now())
   user        User          @relation(fields: [userId], references: [id])
   userId      String
-  Rooms       Room[]
-  roomMembers RoomMembers[]
+  room        Room          @relation(fields: [roomId], references: [id])
+  roomId      String
+  RoomMembers RoomMembers[]
 }
 
 model Room {
@@ -36,9 +37,8 @@ model Room {
   createdAt   DateTime      @default(now())
   user        User          @relation(fields: [userId], references: [id])
   userId      String
-  cards       Card?         @relation(fields: [cardId], references: [id])
-  cardId      String?
-  roomMembers RoomMembers[]
+  cards       Card[]
+  RoomMembers RoomMembers[]
 }
 
 model RoomMembers {
