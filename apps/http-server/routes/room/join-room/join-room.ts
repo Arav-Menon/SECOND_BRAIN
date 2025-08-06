@@ -2,7 +2,7 @@ import express from "express";
 import { middleware } from "../../../middleware";
 import { prismaDb } from "@repo/db/prismaDb";
 
-const userJoinRoom = express();
+export const userJoinRoom = express();
 
 userJoinRoom.post("/join/:roomId", middleware, async (req, res) => {
   const userId = req.id;

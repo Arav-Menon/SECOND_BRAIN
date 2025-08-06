@@ -3,9 +3,9 @@ import { middleware } from "../../../middleware";
 import { roomValidation } from "@repo/lib/authValidation";
 import { prismaDb } from "@repo/db/prismaDb";
 
-const userRoomRouter = express();
+export const userRoomRouter = express();
 
-userRoomRouter.post("/create/", middleware, async (req, res) => {
+userRoomRouter.post("/create", middleware, async (req, res) => {
   const userId = req.id;
   try {
     const body = req.body;

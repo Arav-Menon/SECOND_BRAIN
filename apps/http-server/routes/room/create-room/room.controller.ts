@@ -3,7 +3,7 @@ import { middleware } from "../../../middleware";
 import { prismaDb } from "@repo/db/prismaDb";
 import { roomValidation } from "@repo/lib/authValidation";
 
-const userRoomController = express();
+export const userRoomController = express();
 
 userRoomController.get("/getRoom", middleware, async (req, res) => {
   const userId = req.id;
@@ -12,7 +12,7 @@ userRoomController.get("/getRoom", middleware, async (req, res) => {
     const myRoom = await prismaDb.room.findMany({ where: { userId } });
 
     res.status(200).json({
-      message: "room created",
+      message: "Your room",
       myRoom,
     });
   } catch (error) {
